@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Combrof Chatbot</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- CSS Kustom -->
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <!-- Overlay untuk sidebar -->
+    <div id="overlay"></div>
+
+    <!-- ✅ Burger Menu untuk Mobile -->
+    <div class="burger-menu-toggle" id="burgerToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <h4 class="logo">Riwayat Percakapan</h4>
+            <button class="new-chat-button">
+                <i class="fa-solid fa-trash"></i>
+                Percakapan Baru
+            </button>
+            <div class="history-list">
+                <ul id="historyList">
+                    <li class="active">Pencarian Resep Makanan</li>
+                    <li>Rencana Perjalanan Liburan</li>
+                    <li>Saran Karir</li>
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <button id="settingsButton" class="footer-button">
+                    <i class="fa-solid fa-gear"></i> Stelan
+                </button>
+                <button id="helpButton" class="footer-button">
+                    <i class="fa-solid fa-question-circle"></i> Bantuan
+                </button>
+                <button id="logoutButton" class="footer-button">
+                    <i class="fa-solid fa-right-from-bracket"></i> Keluar
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header-top">
+                <div class="header-title">
+                    <h5></h5>
+                </div>
+                <div class="user-info">
+                    <span class="greeting">Selamat datang,</span>
+                    <strong id="usernameDisplay">Pengguna</strong>
+                </div>
+            </div>
+            <div class="chat-area">
+                <h5 class="initial-message"></h5>
+                <div class="message user-message"></div>
+                <div class="message bot-message"></div>
+            </div>
+            <div class="input-area">
+                <input type="text" class="chat-input" placeholder="Ketik pesan Anda..." />
+                <button class="send-button">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PENGATURAN -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pengaturan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="themeSelect" class="form-label">Tema</label>
+                        <select class="form-select" id="themeSelect">
+                            <option value="light">Terang</option>
+                            <option value="dark">Gelap</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="colorPicker" class="form-label">Pilih Warna Tema</label>
+                        <input type="color" class="form-control form-control-color" id="colorPicker" value="#0d6efd" title="Pilih warna tema" />
+                    </div>
+
+                    <button class="btn btn-danger" id="clearHistoryBtn">Hapus Semua Riwayat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL BANTUAN -->
+    <div class="modal fade" id="helpModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Bantuan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>Cara Menggunakan Chatbot</h6>
+                    <p>Ketik pertanyaan Anda di kotak input dan klik tombol kirim.</p>
+                    <h6>Fitur yang Tersedia</h6>
+                    <ul>
+                        <li>Kerjakan Soal Berhitung</li>
+                        <li>Tips Kesehatan</li>
+                        <li>Konsultasi Medis</li>
+                    </ul>
+                    <h6>Pertanyaan Umum</h6>
+                    <p><strong>Q:</strong> Chatbot tidak merespon?<br /><strong>A:</strong> Periksa koneksi internet Anda, atau muat ulang halaman.</p>
+                    <h6>Kontak Bantuan</h6>
+                    <p>Hubungi kami di <a href="mailto:support@combrofchat.com">support@combrofchat.com</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (Modal dll) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JS Kustom -->
+    <script src="js/dashboard.js"></script>
+    <script src="js/chatbot.js"></script>
+    <script src="js/responsive.js"></script>
+    <script src="js/logout.js"></script>
+</body>
+</html>

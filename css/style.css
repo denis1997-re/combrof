@@ -1,0 +1,587 @@
+/* ================================================= */
+/* ATURAN GLOBAL DAN VARIABEL                        */
+/* ================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
+:root {
+    --color-primary: #8a2be2;
+    --color-primary-dark: #6a1a9a;
+    --color-text-dark: #2c3e50;
+    --color-text-medium: #7f8c8d;
+    --color-text-light: #ecf0f1;
+    --color-background: rgb(0 0 0 / 12%);
+    --color-card-background: #ffffff;
+    --color-border: rgba(0, 0, 0, 0.08);
+
+    --font-family-primary: 'Lato', sans-serif;
+    --font-size-base: 1rem;
+    --font-size-title: 2.2rem;
+    --font-size-logo: 1.5rem;
+    
+    --spacing-sm: 12px;
+    --spacing-md: 20px;
+    --spacing-lg: 40px;
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
+    --border-radius-pill: 20px;
+}
+
+body {
+    font-family: var(--font-family-primary);
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background);
+    color: var(--color-text-dark);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================= */
+/* GAYA HALAMAN LOGIN DAN REGISTER                   */
+/* ================================================= */
+.login-page, .register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.card-container {
+    width: 100%;
+    max-width: 450px;
+    padding: var(--spacing-md);
+}
+
+.card {
+    background-color: #d9d9d9;
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-lg);
+    box-shadow: 0 10px 40px rgb(0 0 0 / 30%), 0 4px 15px rgb(0 0 0 / 50%);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-title {
+    font-size: var(--font-size-title);
+    font-weight: 600;
+    color: var(--color-text-dark);
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-label {
+    font-size: 0.9rem;
+    color: var(--color-text-dark);
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-base);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    color: var(--color-text-dark);
+    border-radius: var(--border-radius-sm);
+    transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.2);
+}
+
+.login-message, .register-message {
+    text-align: center;
+    font-weight: 500;
+    margin-top: var(--spacing-sm);
+}
+
+.login-message {
+    color: #e74c3c;
+}
+
+.register-message.success {
+    color: #27ae60;
+}
+
+.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 14px 24px;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    color: var(--color-text-light);
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+}
+
+.separator {
+    text-align: center;
+    color: var(--color-text-medium);
+    margin: var(--spacing-md) 0;
+    position: relative;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: var(--color-border);
+}
+
+.separator::before {
+    left: 0;
+}
+
+.separator::after {
+    right: 0;
+}
+
+.google-login-container {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.login-link, .register-link {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: var(--spacing-md);
+}
+
+.login-link a, .register-link a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.login-link a:hover, .register-link a:hover {
+    color: var(--color-primary-dark);
+}
+
+/* ================================================= */
+/* GAYA DASHBOARD & CHATBOT                          */
+/* ================================================= */
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+    background-color: var(--color-card-background);
+    border-right: 1px solid var(--color-border);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background);
+}
+
+.logo {
+    font-size: var(--font-size-logo);
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+}
+
+.new-chat-button {
+    background: linear-gradient(90deg, #8a2be2, #6a1a9a);
+    color: white;
+    padding: 12px var(--spacing-md);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.new-chat-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.new-chat-button i {
+    font-size: 1.2rem;
+}
+
+.history-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: var(--spacing-sm);
+}
+
+.history-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.history-list ul li {
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    margin-bottom: 5px;
+    color: var(--color-text-medium);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.history-list ul li:hover,
+.history-list ul li.active {
+    background-color: var(--color-border);
+    color: var(--color-text-dark);
+}
+
+.sidebar-footer {
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--spacing-md);
+    margin-top: auto;
+}
+
+.footer-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: var(--spacing-sm);
+    margin-bottom: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    color: var(--color-text-medium);
+    font-size: var(--font-size-base);
+    transition: background-color 0.2s ease, color 0.2s ease;
+    gap: 10px;
+}
+
+.footer-button:hover {
+    background-color: var(--color-border);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-text-dark);
+}
+
+.footer-button i {
+    font-size: 1.2rem;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--color-card-background);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.header-title h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-dark);
+    margin: 0;
+}
+
+.user-info .greeting {
+    font-size: 0.9rem;
+    color: var(--color-text-medium);
+}
+
+.user-info strong {
+    color: var(--color-text-white);
+}
+
+.chat-area {
+    flex-grow: 1;
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.initial-message {
+    text-align: center;
+    color: var(--color-text-medium);
+    font-style: italic;
+    margin-top: 100px;
+    font-weight: 400;
+}
+
+.message {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 15px;
+    opacity: 0;
+    animation: fadeInUp 0.3s forwards;
+}
+
+.user-message {
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+}
+
+.bot-message {
+    justify-content: flex-start;
+}
+
+.message-content {
+    padding: 12px 20px;
+    border-radius: 20px;
+    max-width: 70%;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.user-message .message-content {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    border-bottom-right-radius: 4px;
+}
+
+.bot-message .message-content {
+    background-color: #e0e0e0;
+    color: #0a58ca;
+    border-top-left-radius: 4px;
+}
+
+.input-area {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    position: sticky;
+    bottom: 0;
+    background: #8a2be296;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.chat-input {
+    flex-grow: 1;
+    padding: 5px 5px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-card-background);
+    color: var(--color-text-dark);
+    border-radius: var(--border-radius-pill);
+    font-size: var(--font-size-base);
+    transition: all 0.2s ease;
+}
+
+.chat-input:focus {
+    outline: none;
+    border-color: #8a2be2;
+    box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.2);
+}
+
+.send-button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    margin-left: var(--spacing-md);
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.send-button i {
+    font-size: 1.2rem;
+}
+
+.send-button:hover {
+    background-color: var(--color-primary-dark);
+}
+
+/* GAYA BARU: Efek 'Mengetik...' dan animasi */
+.typing::after {
+    content: '...';
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+    animation: typing-dots 1s infinite steps(1);
+    vertical-align: bottom;
+}
+
+@keyframes typing-dots {
+    0% { width: 0; }
+    33% { width: 10px; }
+    66% { width: 20px; }
+    100% { width: 30px; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ================================================= */
+/* MEDIA QUERIES UNTUK TAMPILAN MOBILE               */
+/* ================================================= */
+
+/* Aturan untuk tampilan desktop (non-mobile) */
+.burger-menu-toggle {
+    display: none;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+#overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+.burger-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-50%);
+}
+
+.burger-menu-toggle.active span:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.burger-menu-toggle.active span:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+.sidebar.mobile-open {
+    transform: translateX(0) !important;
+}
+
+/* Aturan spesifik untuk perangkat dengan lebar maksimum 768px */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+    
+    .burger-menu-toggle {
+        display: flex;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1001;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+    }
+
+    .burger-menu-toggle span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: #e3e3e3;
+        border-radius: 5px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 70%;
+        height: 100%;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    .header-top {
+        padding-top: 60px;
+        box-shadow: 0 4px 10px rgb(0 0 0 / 50%);
+    }
+}
+/* Menata logo di dalam kartu login */
+.logo-container {
+    margin-bottom: 20px; /* Menambahkan ruang di bawah logo */
+    text-align: center;  /* Menyusun logo ke tengah */
+}
+
+.logo {
+    width: 160px;         /* Ukuran lebar logo (sesuaikan jika ingin lebih besar/kecil) */
+    height: auto;         /* Menjaga proporsi logo */
+    margin-bottom: 20px;  /* Menambahkan jarak antara logo dan judul */
+    display: block;       /* Membuat logo menjadi blok agar bisa ditempatkan di tengah */
+    margin-left: auto;    /* Menempatkan logo di tengah secara horizontal */
+    margin-right: auto;   /* Menempatkan logo di tengah secara horizontal */
+}
+:root {
+    --theme-color: #0d6efd;
+    --background-light: #8a2be152;
+    --background-dark: #300046;
+    --text-light: #000;
+    --text-dark: #eee;
+}
+
+body.light-theme {
+    background-color: var(--background-light);
+    color: var(--text-light);
+}
+
+body.dark-theme {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+}
+
+.sidebar, .header-top {
+    background-color: var(--theme-color);
+    color: white;
+}
+
+

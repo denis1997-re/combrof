@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi Berhasil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light d-flex align-items-center justify-content-center min-vh-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-7 col-sm-9">
+                <div class="card p-4 shadow-lg custom-shadow">
+                    <div class="card-body text-center">
+                        <h2 class="card-title text-success mb-3">Registrasi Berhasil!</h2>
+                        <p id="message"></p>
+                        <button id="continueButton" class="btn btn-primary mt-3">Lanjutkan</button>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const username = params.get('username');
+            const messageElement = document.getElementById('message');
+            const continueButton = document.getElementById('continueButton');
+
+            if (username) {
+                messageElement.innerHTML = `Selamat, <strong>${username}</strong>! Akun Anda telah sukses dibuat.`;
+            } else {
+                messageElement.textContent = `Selamat! Akun Anda telah sukses dibuat.`;
+            }
+
+            continueButton.addEventListener('click', () => {
+                window.location.href = "login.html";
+            });
+        });
+    </script>
+</body>
+</html>
