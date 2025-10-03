@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let conversationId = null;
 
     // BASE URL backend kamu
-    const baseUrl = 'http://combrof.yzz.me';
+    const baseUrl = 'https://combrof.yzz.me';
 
     // --- FUNGSI CHATBOT UTAMA ---
 
@@ -199,3 +199,4 @@ document.addEventListener('DOMContentLoaded', () => {
     startNewChat();
     loadConversationHistory();
 });
+
