@@ -11,11 +11,12 @@ function handleGoogleLogin(response) {
     }
 
     // Kirim ID Token ke server PHP Anda
-    fetch('php/google_auth_api.php', {
+    fetch('htdocs/google_auth_api.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
+        credentials: 'include', // supaya cookie/session ikut terkirim
         body: JSON.stringify({ idToken: idToken }),
     })
     .then(res => res.json())
