@@ -5,7 +5,7 @@ const baseUrl = 'http://combrof.yzz.me';
 // Ambil dan Tampilkan Username dari Session
 // ==========================
 function getAndDisplayUsername() {
-    fetch(`${baseUrl} get_session_data.php`, {
+    fetch(`${baseUrl}/get_session_data.php`, {
         credentials: 'include',
     })
         .then(response => {
@@ -167,5 +167,6 @@ document.addEventListener('DOMContentLoaded', function () {
     setupClearHistory();
     setupThemeSettings();
 });
+
 
 
