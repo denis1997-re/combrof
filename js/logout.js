@@ -1,4 +1,4 @@
-const backendBaseURL = 'http://combrof.yzz.me/logout.php'; // Ganti dengan URL backend PHP kamu
+const backendBaseURL = 'https://combrof.yzz.me/logout.php'; // Ganti dengan URL backend PHP kamu
 
 // Dapatkan tombol logout.
 const logoutButton = document.getElementById('logoutButton');
@@ -30,4 +30,5 @@ if (logoutButton) {
             });
     });
 }
+
 
