@@ -1,8 +1,13 @@
+// BASE URL backend kamu
+const baseUrl = 'http://combrof.yzz.me';
+
 // ==========================
 // Ambil dan Tampilkan Username dari Session
 // ==========================
 function getAndDisplayUsername() {
-    fetch('/chatbot_db/php/get_session_data.php')
+    fetch(`${baseUrl}/php/get_session_data.php`, {
+        credentials: 'include',
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Gagal mengambil data sesi. Status: ' + response.status);
@@ -33,7 +38,9 @@ function setupLogout() {
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
-            fetch('/chatbot_db/php/logout.php')
+            fetch(`${baseUrl}/php/logout.php`, {
+                credentials: 'include',
+            })
                 .then(response => {
                     if (response.ok) {
                         window.location.href = 'login.html';
@@ -160,3 +167,4 @@ document.addEventListener('DOMContentLoaded', function () {
     setupClearHistory();
     setupThemeSettings();
 });
+
