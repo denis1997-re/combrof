@@ -9,7 +9,7 @@ function handleGoogleLogin(response) {
         statusMessage.classList.add('text-primary'); 
     }
 
-    fetch('http://combrof.yzz.me/google_auth_api.php', {
+    fetch('https://combrof.yzz.me/google_auth_api.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -46,3 +46,4 @@ function handleGoogleLogin(response) {
         }
     });
 }
+
