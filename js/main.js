@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Base URL backend kamu
+    const backendBaseURL = 'http://combrof.yzz.me/login_process.php';
+
     // Fungsi Bantuan untuk Menampilkan Pesan
     const showMessage = (element, message, isSuccess) => {
         element.textContent = message;
@@ -14,36 +17,31 @@ document.addEventListener('DOMContentLoaded', () => {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Mengambil nilai dari input dengan ID 'email'
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            // Umpan balik visual saat proses berjalan
             loginMessageDiv.textContent = 'Memproses...';
             loginMessageDiv.style.color = '#007bff';
 
             try {
-                const response = await fetch('php/login_process.php', {
+                const response = await fetch(`${backendBaseURL}/login_process.php`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    // Mengirim data 'email' dan 'password' ke server
                     body: JSON.stringify({ email, password }),
                 });
 
                 const data = await response.json();
-                
+
                 if (data.success) {
                     showMessage(loginMessageDiv, data.message, true);
-                    
-                    // ? TAMBAHAN: Simpan email ke localStorage setelah login berhasil
+
                     localStorage.setItem('email', email);
 
-                    // Redirect ke halaman dashboard setelah login berhasil
                     setTimeout(() => {
                         window.location.href = "dashboard.html";
-                    }, 1000); 
+                    }, 1000);
                 } else {
                     showMessage(loginMessageDiv, data.message, false);
                 }
@@ -66,12 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('regEmail').value;
             const password = document.getElementById('regPassword').value;
 
-            // Umpan balik visual saat proses berjalan
             registerMessageDiv.textContent = 'Memproses...';
             registerMessageDiv.style.color = '#007bff';
 
             try {
-                const response = await fetch('php/register_process.php', {
+                const response = await fetch(`${backendBaseURL}/register_process.php`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -80,9 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const data = await response.json();
-                
+
                 if (data.success) {
-                    // Redirect ke halaman sukses registrasi dengan membawa username di URL
                     window.location.href = `register_success.html?username=${data.username}`;
                 } else {
                     showMessage(registerMessageDiv, data.message, false);
@@ -93,4 +89,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
 });
