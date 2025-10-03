@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Base URL backend kamu tanpa nama file PHP
+    // ✅ Base URL ke backend PHP kamu (pastikan TANPA /login_process.php di akhir)
     const backendBaseURL = 'https://combrof.yzz.me';
 
-    // Fungsi Bantuan untuk Menampilkan Pesan
+    // Fungsi untuk menampilkan pesan ke user
     const showMessage = (element, message, isSuccess) => {
         element.textContent = message;
         element.style.color = isSuccess ? 'green' : 'red';
     };
 
-    // --- Logika untuk Form Login ---
+    // --- LOGIN FORM ---
     const loginForm = document.getElementById('loginForm');
     const loginMessageDiv = document.getElementById('message');
 
@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include', // penting untuk session/cookie
                     body: JSON.stringify({ email, password }),
                 });
 
@@ -36,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (data.success) {
                     showMessage(loginMessageDiv, data.message, true);
-
                     localStorage.setItem('email', email);
 
                     setTimeout(() => {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Logika untuk Form Registrasi ---
+    // --- REGISTER FORM ---
     const registerForm = document.getElementById('registerForm');
     const registerMessageDiv = document.getElementById('message');
 
@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include',
                     body: JSON.stringify({ username, email, password }),
                 });
 
@@ -90,4 +91,78 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- LOGOUT BUTTON ---
+    const logoutButton = document.getElementById('logoutButton');
+
+    if (logoutButton) {
+        logoutButton.addEventListener('click', () => {
+            fetch(`${backendBaseURL}/logout.php`, {
+                credentials: 'include'
+            })
+            .then(response => {
+                if (response.ok) return response.json();
+                throw new Error('Logout request failed.');
+            })
+            .then(data => {
+                if (data.success) {
+                    window.location.href = 'login.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error saat mencoba logout:', error);
+                window.location.href = 'login.html';
+            });
+        });
+    }
+
+    // --- GOOGLE LOGIN HANDLER (Jika digunakan) ---
+    window.handleGoogleLogin = function(response) {
+        const idToken = response.credential;
+        console.log("ID Token dari Google: " + idToken);
+
+        const statusMessage = document.getElementById('statusMessage');
+        if (statusMessage) {
+            statusMessage.textContent = 'Memvalidasi token Google...';
+            statusMessage.classList.remove('text-success', 'text-danger');
+            statusMessage.classList.add('text-primary');
+        }
+
+        fetch(`${backendBaseURL}/google_auth_api.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+            body: JSON.stringify({ idToken }),
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log('Response dari server:', data);
+
+            if (data.success) {
+                if (statusMessage) {
+                    statusMessage.textContent = data.message;
+                    statusMessage.classList.remove('text-primary', 'text-danger');
+                    statusMessage.classList.add('text-success');
+                }
+
+                localStorage.setItem('username', data.username);
+                window.location.href = 'dashboard.html';
+            } else {
+                if (statusMessage) {
+                    statusMessage.textContent = 'Kesalahan: ' + data.message;
+                    statusMessage.classList.remove('text-primary', 'text-success');
+                    statusMessage.classList.add('text-danger');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error saat mengirim token ke server:', error);
+            if (statusMessage) {
+                statusMessage.textContent = 'Terjadi kesalahan saat menghubungi server.';
+                statusMessage.classList.remove('text-primary', 'text-success');
+                statusMessage.classList.add('text-danger');
+            }
+        });
+    };
 });
