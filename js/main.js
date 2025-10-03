@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // Base URL backend kamu
-    const backendBaseURL = 'http://combrof.yzz.me/login_process.php';
+    const backendBaseURL = 'https://combrof.yzz.me/login_process.php';
 
     // Fungsi Bantuan untuk Menampilkan Pesan
     const showMessage = (element, message, isSuccess) => {
@@ -91,3 +91,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
+
