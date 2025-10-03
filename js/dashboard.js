@@ -1,5 +1,5 @@
 // BASE URL backend kamu
-const baseUrl = 'http://combrof.yzz.me';
+const baseUrl = 'https://combrof.yzz.me';
 
 // ==========================
 // Ambil dan Tampilkan Username dari Session
@@ -38,7 +38,7 @@ function setupLogout() {
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
-            fetch(`${baseUrl}/htdocs/logout.php`, {
+            fetch(`${baseUrl}/logout.php`, {
                 credentials: 'include',
             })
                 .then(response => {
@@ -167,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setupClearHistory();
     setupThemeSettings();
 });
+
 
 
 
