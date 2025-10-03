@@ -5,7 +5,7 @@ const baseUrl = 'http://combrof.yzz.me';
 // Ambil dan Tampilkan Username dari Session
 // ==========================
 function getAndDisplayUsername() {
-    fetch(`${baseUrl}/php/get_session_data.php`, {
+    fetch(`${baseUrl}/htdocs/get_session_data.php`, {
         credentials: 'include',
     })
         .then(response => {
@@ -38,7 +38,7 @@ function setupLogout() {
     const logoutButton = document.getElementById('logoutButton');
     if (logoutButton) {
         logoutButton.addEventListener('click', () => {
-            fetch(`${baseUrl}/php/logout.php`, {
+            fetch(`${baseUrl}/htdocs/logout.php`, {
                 credentials: 'include',
             })
                 .then(response => {
@@ -167,4 +167,5 @@ document.addEventListener('DOMContentLoaded', function () {
     setupClearHistory();
     setupThemeSettings();
 });
+
 
