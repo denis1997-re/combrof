@@ -11,13 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentConversation = [];
     let conversationId = null;
 
+    // BASE URL backend kamu
+    const baseUrl = 'http://combrof.yzz.me';
+
     // --- FUNGSI CHATBOT UTAMA ---
 
-    /**
-     * Menampilkan pesan ke area chat.
-     * @param {string} message - Isi pesan.
-     * @param {string} sender - Pengirim pesan ('user' atau 'bot').
-     */
     const displayMessage = (message, sender) => {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
@@ -31,35 +29,30 @@ document.addEventListener('DOMContentLoaded', () => {
         chatArea.scrollTop = chatArea.scrollHeight;
     };
 
-    /**
-     * Memuat riwayat percakapan dari server.
-     */
     const loadConversationHistory = async () => {
         try {
-            const response = await fetch('./php/get_chat_history.php');
+            const response = await fetch(`${baseUrl}/get_chat_history.php`, {
+                credentials: 'include'
+            });
             if (!response.ok) {
                 console.warn('Chat history not found or failed to load. Starting a new session.');
                 return;
             }
             
             const allConversations = await response.json();
-            
             historyList.innerHTML = '';
-            const conversationKeys = Object.keys(allConversations).sort().reverse(); 
+
+            const conversationKeys = Object.keys(allConversations).sort().reverse();
 
             conversationKeys.forEach(id => {
                 const conversation = allConversations[id];
                 if (conversation.length > 0) {
                     const firstMessage = conversation[0].message;
-                    
                     const historyItem = document.createElement('li');
                     historyItem.classList.add('history-item');
                     historyItem.textContent = firstMessage.length > 30 ? firstMessage.substring(0, 27) + '...' : firstMessage;
                     historyItem.dataset.id = id;
-                    
-                    historyItem.addEventListener('click', () => {
-                        loadConversation(id);
-                    });
+                    historyItem.addEventListener('click', () => loadConversation(id));
                     historyList.appendChild(historyItem);
                 }
             });
@@ -68,26 +61,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    /**
-     * Memuat percakapan spesifik dan menampilkannya.
-     * @param {string} id - ID percakapan yang akan dimuat.
-     */
     const loadConversation = async (id) => {
         try {
-            const response = await fetch('./php/get_chat_history.php');
+            const response = await fetch(`${baseUrl}/get_chat_history.php`, {
+                credentials: 'include'
+            });
             if (!response.ok) throw new Error('Failed to load specific chat.');
-            
+
             const allConversations = await response.json();
             const conversationToLoad = allConversations[id];
-            
+
             if (conversationToLoad) {
                 currentConversation = conversationToLoad;
                 conversationId = id;
                 chatArea.innerHTML = '';
-                
-                if (initialMessage) {
-                    initialMessage.style.display = 'none';
-                }
+                if (initialMessage) initialMessage.style.display = 'none';
 
                 currentConversation.forEach(msg => {
                     displayMessage(msg.message, msg.sender);
@@ -99,9 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    /**
-     * Menyimpan percakapan saat ini ke server.
-     */
     const saveConversation = async () => {
         if (!conversationId) {
             console.error('Cannot save. Conversation ID is missing.');
@@ -109,11 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch('./php/save_chat_history.php', {
+            const response = await fetch(`${baseUrl}/save_chat_history.php`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify({
                     conversationId: conversationId,
                     conversationData: currentConversation
@@ -127,33 +113,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    /**
-     * Memulai percakapan baru.
-     */
     const startNewChat = () => {
         currentConversation = [];
         conversationId = new Date().getTime().toString();
         chatArea.innerHTML = '';
-        if (initialMessage) {
-            initialMessage.style.display = 'block';
-        }
+        if (initialMessage) initialMessage.style.display = 'block';
         chatInput.focus();
         loadConversationHistory();
     };
 
-    /**
-     * Mengirim pesan dan menerima respons dari API.
-     */
     const sendMessage = async () => {
         const userMessage = chatInput.value.trim();
         if (userMessage === '') return;
 
         displayMessage(userMessage, 'user');
         chatInput.value = '';
-
-        if (initialMessage) {
-            initialMessage.style.display = 'none';
-        }
+        if (initialMessage) initialMessage.style.display = 'none';
 
         const loadingMessage = document.createElement('div');
         loadingMessage.classList.add('message', 'bot-message', 'typing');
@@ -163,15 +138,16 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingMessage.appendChild(loadingContent);
         chatArea.appendChild(loadingMessage);
         chatArea.scrollTop = chatArea.scrollHeight;
-        
+
         currentConversation.push({ sender: 'user', message: userMessage });
 
         try {
-            const response = await fetch('./php/chatbot_api.php', {
+            const response = await fetch(`${baseUrl}/chatbot_api.php`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                credentials: 'include',
                 body: JSON.stringify({ message: userMessage, conversation_history: currentConversation }),
             });
 
@@ -181,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const data = await response.json();
-            
+
             if (chatArea.contains(loadingMessage)) {
                 chatArea.removeChild(loadingMessage);
             }
@@ -189,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const botResponse = data.response;
             displayMessage(botResponse, 'bot');
             currentConversation.push({ sender: 'bot', message: botResponse });
-            
+
             saveConversation();
             loadConversationHistory();
         } catch (error) {
@@ -208,19 +184,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sendButton) {
         sendButton.addEventListener('click', sendMessage);
     }
-    
+
     if (chatInput) {
         chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
+            if (e.key === 'Enter') sendMessage();
         });
     }
 
     if (newChatButton) {
         newChatButton.addEventListener('click', startNewChat);
     }
-    
+
     // --- INISIALISASI ---
     startNewChat();
     loadConversationHistory();
